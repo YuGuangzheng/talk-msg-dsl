@@ -4,16 +4,38 @@
 flat = (dsl) ->
   "<$#{dsl.category}|#{dsl.model}|#{dsl.view}$>"
 
-stringify = recur (result, content) ->
-  if content.length is 0
-    result
-  else
-    first = content[0]
-    rest = content[1..]
-    if (typeof first) is 'string'
-      stringify (result + first), rest
-    else
-      stringify (result + (flat first)), rest
-
 exports.write = (list) ->
-  stringify '', list
+  list
+  .map (piece) ->
+    if (typeof piece) is 'string'
+      piece
+    else
+      flat piece
+  .join('')
+
+entityMap =
+  "&": "&amp;"
+  "<": "&lt;"
+  ">": "&gt;"
+  '"': '&quot;'
+  "'": '&#39;'
+  "/": '&#x2F;'
+
+escapeHtml = (string) ->
+  String(string).replace /[&<>"'\/]/g, (s) -> entityMap[s]
+
+makeTag = (dsl) ->
+  switch dsl.category
+    when 'mention' then "<mention>#{escapeHtml dsl.view}</metion>"
+    when 'link' then "<a href=\"#{dsl.model}\">#{escapeHtml dsl.view}</a>"
+    when 'bold' then "<strong>#{escapeHtml dsl.view}</strong>"
+    else dsl.view
+
+exports.writeHtml = (list) ->
+  list
+  .map (piece) ->
+    if (typeof piece) is 'string'
+      escapeHtml piece
+    else
+      makeTag piece
+  .join('')
