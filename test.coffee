@@ -28,6 +28,10 @@ do main = ->
     category: 'bold', model: 'a', view: 'b'
   ,
     category: 'link', model: 'a', view: 'b'
+  ,
+    '<a>\n<b/>'
   ]
-  expectedHtml = '<mention>b</metion><strong>b</strong><a href="a">b</a>'
+  expectedHtml = '<mention>b</metion><strong>b</strong><a href="a">b</a>&lt;a&gt;<br>&lt;b&#x2F;&gt;'
+  # console.log generatedHtml
   console.assert (generatedHtml is expectedHtml), 'should return html'
+

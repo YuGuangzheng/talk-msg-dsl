@@ -20,9 +20,10 @@ entityMap =
   '"': '&quot;'
   "'": '&#39;'
   "/": '&#x2F;'
+  "\n": '<br>'
 
 escapeHtml = (string) ->
-  String(string).replace /[&<>"'\/]/g, (s) -> entityMap[s]
+  String(string).replace /[&<>"'\/\n]/g, (s) -> entityMap[s]
 
 makeTag = (dsl) ->
   switch dsl.category
