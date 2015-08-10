@@ -1,6 +1,6 @@
 {
-  "name": "msg-dsl",
-  "version": "0.0.1",
+  "name": "talk-msg-dsl",
+  "version": "0.0.2",
   "description": "Message DSL reader/writer of Jianliao.com",
   "main": "lib/index.js",
   "scripts": {

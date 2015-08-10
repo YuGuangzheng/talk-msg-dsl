@@ -3,12 +3,12 @@ _ = require 'lodash'
 
 # dslTable = [{model: String, view: String}]
 
-exports.render = (dslList, dslTable) ->
+exports.update = (dslList, dslTable) ->
   dslMap = {}
   _.forEach dslTable, (item) ->
     dslMap[item.model] = item.view
   # console.log dslMap
-  newDslList = dslList.map (piece) ->
+  dslList.map (piece) ->
     if (typeof piece) is 'string'
       piece
     else
@@ -18,6 +18,8 @@ exports.render = (dslList, dslTable) ->
       else
         piece
 
+exports.render = (dslList, dslTable) ->
+  newDslList = exports.update dslList, dslTable
   result = newDslList.map (item) ->
     if (typeof item) is 'string'
       item

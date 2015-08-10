@@ -9,3 +9,4 @@ exports.write = writer.write
 exports.writeHtml = writer.writeHtml
 exports.recognize = recognizer.findDsl
 exports.flattern = flatterner.render
+exports.update = flatterner.update
