@@ -26,7 +26,7 @@ reduceText = recur (result, buffer, text, category, dlsTable) ->
           result.push buffer
           buffer = ''
         result.push
-          category: category
+          category: aMatch.category
           model: aMatch.model
           view: "#{category}#{aMatch.view}"
         jumpLength = aMatch.view.length

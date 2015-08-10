@@ -28,6 +28,8 @@ escapeHtml = (string) ->
 makeTag = (dsl) ->
   switch dsl.category
     when 'mention' then "<mention>#{escapeHtml dsl.view}</metion>"
+    when '@' then "<mention>#{escapeHtml dsl.view}</metion>"
+    when 'at' then "<mention>#{escapeHtml dsl.view}</metion>"
     when 'link' then "<a href=\"#{dsl.model}\">#{escapeHtml dsl.view}</a>"
     when 'bold' then "<strong>#{escapeHtml dsl.view}</strong>"
     else dsl.view

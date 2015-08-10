@@ -2,12 +2,12 @@
 msgDsl = require '../src'
 
 exampleDslTable = [
-  {model: '1', view: 'C'}
-  {model: '1', view: 'React'}
-  {model: '1', view: 'Haskell'}
-  {model: '1', view: 'Clojure'}
-  {model: '1', view: 'Chen Yong'}
-  {model: '1', view: 'ClojureScript'}
+  {category: '@', model: '1', view: 'C'}
+  {category: '@', model: '1', view: 'React'}
+  {category: '@', model: '1', view: 'Haskell'}
+  {category: '@', model: '1', view: 'Clojure'}
+  {category: '@', model: '1', view: 'Chen Yong'}
+  {category: '@', model: '1', view: 'ClojureScript'}
 ]
 exampleText = "My name is @Chen Yong, I prefer @Clojure @React than @C"
 
