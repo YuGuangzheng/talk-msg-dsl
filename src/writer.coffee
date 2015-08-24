@@ -1,5 +1,6 @@
 
 {recur} = require 'tail-call/core'
+link = require './link'
 
 flat = (dsl) ->
   "<$#{dsl.category}|#{dsl.model}|#{dsl.view}$>"
@@ -35,7 +36,7 @@ makeTag = (dsl) ->
     else dsl.view
 
 exports.writeHtml = (list) ->
-  list
+  link.mark(list)
   .map (piece) ->
     if (typeof piece) is 'string'
       escapeHtml piece

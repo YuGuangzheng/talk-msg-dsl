@@ -1,6 +1,6 @@
 {
   "name": "talk-msg-dsl",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Message DSL reader/writer of Jianliao.com",
   "main": "lib/index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "lodash": "^3.10.1",
-    "tail-call": "0.0.1"
+    "tail-call": "0.0.1",
+    "type-of": "^2.0.1"
   }
 }
