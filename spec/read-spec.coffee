@@ -28,7 +28,7 @@ htmlData = [
 ,
   '<a>\n<b/>'
 ]
-expectedHtml = '<mention>b</metion><strong>b</strong><a href="a">b</a>&lt;a&gt;<br>&lt;b&#x2F;&gt;'
+expectedHtml = '<mention>b</mention><strong>b</strong><a href="a">b</a>&lt;a&gt;<br>&lt;b&#x2F;&gt;'
 
 describe 'generate html for some reason', ->
   it 'should result html', ->
