@@ -1,11 +1,11 @@
 
-_ = require 'lodash'
+assign = require 'lodash.assign'
 
 # dslTable = [{model: String, view: String}]
 
 exports.update = (dslList, dslTable) ->
   dslMap = {}
-  _.forEach dslTable, (item) ->
+  dslTable.forEach (item) ->
     dslMap[item.model] = item.view
   # console.log dslMap
   dslList.map (piece) ->
@@ -14,7 +14,7 @@ exports.update = (dslList, dslTable) ->
     else
       if dslMap[piece.model]?
         newPiece = {}
-        _.assign {}, piece, view: dslMap[piece.model]
+        assign {}, piece, view: dslMap[piece.model]
       else
         piece
 

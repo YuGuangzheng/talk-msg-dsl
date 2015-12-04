@@ -18,7 +18,9 @@
     "gulp-coffee": "^2.3.1"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
+    "lodash.assign": "3.2.0",
+    "lodash.find": "3.2.1",
+    "lodash.sortby": "3.1.5",
     "tail-call": "0.0.1",
     "type-of": "^2.0.1"
   }

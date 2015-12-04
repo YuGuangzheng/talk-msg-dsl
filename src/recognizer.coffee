@@ -1,6 +1,7 @@
 
 {recur} = require 'tail-call/core'
-_ = require 'lodash'
+find = require 'lodash.find'
+sortBy = require 'lodash.sortby'
 
 # dlsTable :: [{category: String, model: String, view: String}]
 # for example [{category: '@', model: '57acb39', view: 'talkai'}]
@@ -19,7 +20,7 @@ reduceText = recur (result, buffer, text, category, dlsTable) ->
     restText = text[1..]
     if firstChar is category
       # matching the rest
-      aMatch = _.find dlsTable, (dsl) -> matchHead restText, dsl.view
+      aMatch = find dlsTable, (dsl) -> matchHead restText, dsl.view
       # console.log 'aMatch:', aMatch
       if aMatch?
         if buffer.length > 0
@@ -40,6 +41,6 @@ reduceText = recur (result, buffer, text, category, dlsTable) ->
 # support only one category by now
 exports.findDsl = (text, category, dlsTable) ->
   # give long views higher priority
-  sortedTable = _.sortBy dlsTable, (dsl) ->
+  sortedTable = sortBy dlsTable, (dsl) ->
     -dsl.view.length
   reduceText [], '', text, category, sortedTable
