@@ -1,6 +1,8 @@
 
+assign = require 'lodash.assign'
 {recur} = require 'tail-call/core'
 link = require './link'
+util = require './util'
 
 flat = (dsl) ->
   "<$#{dsl.category}|#{dsl.model}|#{dsl.view}$>"
@@ -8,7 +10,7 @@ flat = (dsl) ->
 exports.write = (list) ->
   list
   .map (piece) ->
-    if (typeof piece) is 'string'
+    if util.isString(piece)
       piece
     else
       flat piece
@@ -27,19 +29,23 @@ escapeHtml = (string) ->
   String(string).replace /[&<>"'\/\n]/g, (s) -> entityMap[s]
 
 makeTag = (dsl) ->
-  switch dsl.category
-    when 'mention' then "<mention>#{escapeHtml dsl.view}</mention>"
-    when '@' then "<mention>#{escapeHtml dsl.view}</mention>"
-    when 'at' then "<mention>#{escapeHtml dsl.view}</mention>"
-    when 'link' then "<a href=\"#{dsl.model}\">#{escapeHtml dsl.view}</a>"
-    when 'bold' then "<strong>#{escapeHtml dsl.view}</strong>"
-    else dsl.view
+  if util.isString(dsl)
+    dsl
+  else
+    switch dsl.category
+      when 'at' then "<mention>#{dsl.view}</mention>"
+      when 'link' then "<a href=\"#{dsl.model}\">#{dsl.view}</a>"
+      when 'bold' then "<strong>#{dsl.view}</strong>"
+      else dsl.view
 
-exports.writeHtml = (list) ->
+exports.writeHtml = (list, customMakeTag = util.identity) ->
   link.mark(list)
   .map (piece) ->
-    if (typeof piece) is 'string'
-      escapeHtml piece
-    else
-      makeTag piece
+    newPiece =
+      if util.isString(piece)
+        escapeHtml piece
+      else
+        assign {}, piece, view: escapeHtml(piece.view)
+
+    makeTag(customMakeTag(newPiece))
   .join('')

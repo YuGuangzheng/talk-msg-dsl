@@ -1,5 +1,6 @@
 
 assign = require 'lodash.assign'
+util = require './util'
 
 # dslTable = [{model: String, view: String}]
 
@@ -7,22 +8,23 @@ exports.update = (dslList, dslTable = []) ->
   dslMap = {}
   dslTable.forEach (item) ->
     dslMap[item.model] = item.view
-  # console.log dslMap
+
   dslList.map (piece) ->
-    if (typeof piece) is 'string'
+    if util.isString(piece)
       piece
     else
       if dslMap[piece.model]?
-        newPiece = {}
         assign {}, piece, view: dslMap[piece.model]
       else
         piece
 
-exports.render = (dslList, dslTable = []) ->
+exports.render = (dslList, dslTable = [], customMakeTag = util.identity) ->
   newDslList = exports.update dslList, dslTable
-  result = newDslList.map (item) ->
-    if (typeof item) is 'string'
-      item
+  newDslList
+  .map (item) ->
+    newItem = customMakeTag(item)
+    if util.isString(newItem)
+      newItem
     else
-      item.view
+      newItem.view
   .join('')

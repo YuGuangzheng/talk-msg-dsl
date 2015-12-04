@@ -1,6 +1,6 @@
 
 {recur} = require 'tail-call/core'
-type = require 'type-of'
+util = require './util'
 
 concat = (a, b) ->
   a.concat b
@@ -59,7 +59,7 @@ reduceText = (result, buffer, text) ->
 
 exports.mark = (list) ->
   flatMap list, (item) ->
-    if (type item) is 'string'
+    if util.isString(item)
       reduceText [], '', item
     else
       [item]
