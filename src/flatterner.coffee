@@ -3,7 +3,7 @@ assign = require 'lodash.assign'
 
 # dslTable = [{model: String, view: String}]
 
-exports.update = (dslList, dslTable) ->
+exports.update = (dslList, dslTable = []) ->
   dslMap = {}
   dslTable.forEach (item) ->
     dslMap[item.model] = item.view
@@ -18,7 +18,7 @@ exports.update = (dslList, dslTable) ->
       else
         piece
 
-exports.render = (dslList, dslTable) ->
+exports.render = (dslList, dslTable = []) ->
   newDslList = exports.update dslList, dslTable
   result = newDslList.map (item) ->
     if (typeof item) is 'string'

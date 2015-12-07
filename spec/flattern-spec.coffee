@@ -17,3 +17,7 @@ describe "flattern", ->
   it 'should match default', ->
     result = msgDsl.flattern exampleList, exampleTable
     expect(result).toEqual (exampleResult)
+
+  it 'should handle undefined dsl table', ->
+    result = msgDsl.flattern exampleList
+    expect(result).toEqual 'this is a Curry Haskell'
