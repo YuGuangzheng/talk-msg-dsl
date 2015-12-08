@@ -4,7 +4,8 @@
   "description": "Message DSL reader/writer of Jianliao.com",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jasmine-node --coffee spec"
+    "test": "jasmine-node --coffee spec",
+    "test-dev": "jasmine-node --watch . --coffee spec --autotest"
   },
   "repository": {
     "type": "git",
