@@ -16,36 +16,48 @@ exports.write = (list) ->
       flat piece
   .join('')
 
-entityMap =
+htmlReplacementsRegex = /[&<>"'\/]/g
+htmlReplacements =
   "&": "&amp;"
   "<": "&lt;"
   ">": "&gt;"
   '"': '&quot;'
   "'": '&#39;'
   "/": '&#x2F;'
-  "\n": '<br>'
 
-escapeHtml = (string) ->
-  String(string).replace /[&<>"'\/\n]/g, (s) -> entityMap[s]
+viewReplacementsRegex = /[&<>"'\/\n]/g
+viewReplacements = assign htmlReplacements,
+  '\n': '<br>'
+
+escape = (string, regex, replacements) ->
+  String(string).replace regex, (s) ->
+    replacements[s]
+
+escapeHtml = (string) -> escape(string, htmlReplacementsRegex, htmlReplacements)
+escapeView = (string) -> escape(string, viewReplacementsRegex, viewReplacements)
 
 makeTag = (dsl) ->
   if util.isString(dsl)
     dsl
   else
     switch dsl.category
-      when 'at' then "<mention>#{dsl.view}</mention>"
-      when 'link' then "<a href=\"#{dsl.model}\">#{dsl.view}</a>"
-      when 'bold' then "<strong>#{dsl.view}</strong>"
-      else dsl.view
+      when 'at'
+        "<mention>#{dsl.view}</mention>"
+      when 'link'
+        "<a href=\"#{escapeHtml(dsl.model)}\">#{dsl.view}</a>"
+      when 'bold'
+        "<strong>#{dsl.view}</strong>"
+      else
+        dsl.view
 
 exports.writeHtml = (list, customMakeTag = util.identity) ->
   link.mark(list)
   .map (piece) ->
     newPiece =
       if util.isString(piece)
-        escapeHtml piece
+        escapeView piece
       else
-        assign {}, piece, view: escapeHtml(piece.view)
+        assign {}, piece, view: escapeView(piece.view)
 
     makeTag(customMakeTag(newPiece))
   .join('')
