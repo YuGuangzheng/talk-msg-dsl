@@ -32,8 +32,7 @@ describe 'generate html for some reason', ->
 
   it 'should result html', ->
     generatedHtml = msgDsl.writeHtml htmlData
-    result = generatedHtml is expectedHtml
-    expect(result).toBe(true)
+    expect(generatedHtml).toEqual expectedHtml
 
 describe 'can provide additional custom make tag function to provide the defaults', ->
   htmlData = [
@@ -71,13 +70,26 @@ describe 'can provide additional custom make tag function to provide the default
 
   it 'should result html', ->
     generatedHtml = msgDsl.writeHtml htmlData, makeTag
-    result = generatedHtml is expectedHtml
-    expect(result).toBe(true)
+    expect(generatedHtml).toEqual expectedHtml
 
 describe 'long text support with tail call recursion', ->
   longText = [1..1000].map(-> 'a <$mark|model|view$> a').join(' ')
 
   it 'should parse through', ->
     longTextBack = msgDsl.write msgDsl.read longText
-    result = longText is longTextBack
-    expect(result).toBe(true)
+    expect(longText).toEqual longTextBack
+
+describe 'make tag', ->
+  it 'should html escape href model', ->
+    htmlData = [
+      category: 'link', model: 'http://test.com', view: 'view1'
+    ]
+    generatedHtml = '<a href="http:&#x2F;&#x2F;test.com">view1</a>'
+    expect(msgDsl.writeHtml(htmlData)).toEqual generatedHtml
+
+  it 'should not escape \n', ->
+    htmlData = [
+      category: 'link', model: 'http://test.com\n', view: 'view1' # bad data, parse it any way
+    ]
+    generatedHtml = '<a href="http:&#x2F;&#x2F;test.com\n">view1</a>'
+    expect(msgDsl.writeHtml(htmlData)).toEqual generatedHtml
