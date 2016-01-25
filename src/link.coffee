@@ -4,7 +4,7 @@ linkify = require('linkify-it')()
 
 makeLinkDsl = (schema) ->
   category: 'link'
-  model: schema.text
+  model: schema.url
   view: schema.text
 
 toDsl = (text) ->

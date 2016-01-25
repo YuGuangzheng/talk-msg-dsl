@@ -11,6 +11,16 @@ describe 'recognize link among text', ->
     result = link.mark [textWithOnlyLink]
     expect(result).toEqual(resultWithOnlyLink)
 
+  it 'should add http href ', ->
+    textWithOnlyLink = 'cirru.org'
+    resultWithOnlyLink = [
+      category: 'link'
+      model: 'http://cirru.org'
+      view: 'cirru.org'
+    ]
+    result = link.mark [textWithOnlyLink]
+    expect(result).toEqual(resultWithOnlyLink)
+
   it 'should find a link inside', ->
     textWithLink = 'a http://cirru.org b'
     resultWithLink = [
@@ -43,7 +53,7 @@ describe 'recognize link among text', ->
       ' '
     ,
       category: 'link'
-      model: 'baidu.com/中文'
+      model: 'http://baidu.com/中文'
       view: 'baidu.com/中文'
     ,
       ' b'
