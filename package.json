@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jasmine-node --coffee spec",
-    "test-dev": "jasmine-node --watch . --coffee spec --autotest"
+    "test-dev": "jasmine-node --color --watch . --coffee spec --autotest"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,6 @@
   "dependencies": {
     "linkify-it": "^1.2.0",
     "lodash.assign": "3.2.0",
-    "lodash.find": "3.2.1",
-    "lodash.sortby": "3.1.5",
     "tail-call": "0.0.1",
     "type-of": "^2.0.1"
   }
