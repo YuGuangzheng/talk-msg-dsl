@@ -1,5 +1,5 @@
 
-assign = require 'lodash.assign'
+assign = require 'object-assign'
 link = require './link'
 util = require './util'
 

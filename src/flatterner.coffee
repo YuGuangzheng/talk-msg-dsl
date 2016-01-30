@@ -1,5 +1,5 @@
 
-assign = require 'lodash.assign'
+assign = require 'object-assign'
 util = require './util'
 
 # dslTable = [{model: String, view: String}]

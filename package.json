@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "linkify-it": "^1.2.0",
-    "lodash.assign": "3.2.0",
+    "object-assign": "^3.0.0",
     "tail-call": "0.0.1",
     "type-of": "^2.0.1"
   }

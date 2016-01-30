@@ -1,4 +1,4 @@
-assign = require 'lodash.assign'
+assign = require 'object-assign'
 type = require 'type-of'
 
 exports.isString = (s) ->
