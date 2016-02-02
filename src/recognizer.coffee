@@ -61,16 +61,14 @@ Trie::put = (str, value) ->
 
 Trie::find = (str) ->
   node = this
-  found = null
+  found = []
 
   for s, i in str
     n = node[s]
-    if not (n and n.key)
+    if not n
       break
-    if n.value and n.value.view.length is i \
-    and not n[str[i + 1]] # look ahead to match a longer pattern
-      found = n
-      break
+    if n.str is str.slice(0, i + 1)
+      found.push n
     node = n
 
-  found?.value
+  found[found.length - 1]?.value # take the longest match

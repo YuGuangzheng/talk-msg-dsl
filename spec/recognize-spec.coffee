@@ -125,6 +125,20 @@ describe 'recognize', ->
     output = msgDsl.recognize text, categories, dslTable
     expect(output).toEqual(result)
 
+  it 'should handle texts that are subsets', ->
+    dslTable = [
+      {category: 'at', model: '1', view: 'AAA'}
+      {category: 'at', model: '2', view: 'AAA AAA'}
+    ]
+    text =
+      '@AAA '
+    result = [
+      {category: 'at', model: '1', view: '@AAA'}
+      ' '
+    ]
+    output = msgDsl.recognize text, categories, dslTable
+    expect(output).toEqual(result)
+
   it 'should handle large texts', ->
     dslTable = [1..10000].map (i) ->
       {category: 'at', model: i, view: 'test' + i}
